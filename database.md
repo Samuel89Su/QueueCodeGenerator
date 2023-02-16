@@ -374,7 +374,7 @@
 | QueueId | uniqueidentifier | No |  |  |  |
 | ServiceAgentId | uniqueidentifier | Yes |  |  |  |
 | Status | int | No |  |  |  |
-| ServeDuration | int | No |  |  | in seconds |
+| TimeToEndedFromArrived | int | No |  |  | in seconds |
 | TimeToArrivedFromCreated | int | No |  |  | in seconds |
 | TimeToSummonedFromCreated | int | No |  |  | in seconds |
 | TimeToSummonedFromArrived | int | No |  |  | in seconds |
