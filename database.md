@@ -379,7 +379,6 @@
 | TimeToSummonedFromCreated | int | No |  |  | in seconds |
 | TimeToSummonedFromArrived | int | No |  |  | in seconds |
 | OriginalEstimatedWaitingTime | int | No |  |  |  |
-| CurrentQueuePosition | int | No |  |  |  |
 | CreatedOn | datetime | No |  |  |  |
 | SummonedOn | datetime | No |  |  |  |
 | ArrivedOn | datetime | No |  |  |  |
