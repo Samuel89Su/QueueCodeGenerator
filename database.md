@@ -7,10 +7,10 @@
 | PartnerId | int | No |  |  |  |
 | Language | smallint | No |  |  |  |
 | Category | smallint | No |  |  | 'Location'、'Queue' |
-| SystemName | nvarchar(256) | No |  |  | Identity Name, As Enum in Code |
-| Name | nvarchar(256) | No |  |  | Display Name |
-| DefaultText | nvarchar(MAX) | No |  |  |  |
-| Macros | nvarchar(2048) | No |  |  |  |
+| SystemName | nvarchar(256) | No | '' |  | Identity Name, As Enum in Code |
+| Name | nvarchar(256) | No | '' |  | Display Name |
+| DefaultText | nvarchar(MAX) | No | '' |  |  |
+| Macros | nvarchar(2048) | No | '' |  |  |
 | IsDeleted | bit | No | 0 |  |  |
 | RowVersion | timestamp | No |  |  |  |
 
@@ -27,10 +27,10 @@
 | Language | smallint | No |  |  |  |
 | NotificationType | smallint | No |  |  |  |
 | ChannelType | smallint | No | 'SMS' |  |  |
-| SystemName | nvarchar(256) | No |  |  | Identity Name, As Enum in Code |
-| Name | nvarchar(256) | No |  |  | Display Name |
-| DefaultText | nvarchar(MAX) | No |  |  |  |
-| Macros | nvarchar(2048) | No |  |  |  |
+| SystemName | nvarchar(256) | No | '' |  | Identity Name, As Enum in Code |
+| Name | nvarchar(256) | No | '' |  | Display Name |
+| DefaultText | nvarchar(MAX) | No | '' |  |  |
+| Macros | nvarchar(2048) | No | '' |  |  |
 | IsDeleted | bit | No | 0 |  |  |
 | RowVersion | timestamp | No |  |  |  |
 
@@ -45,10 +45,9 @@
 |--|--|--|--|--|--|
 | Id | uniqueidentifier | No | NEWID() | Yes |  |
 | SiteId | int | No |  |  |  |
-| Name | nvarchar(256) | No |  |  |  |
+| Name | nvarchar(256) | No | '' |  |  |
 | Logo | nvarbinary(MAX) | No |  |  |  |
 | ThemeColor | nvarchar(32) | No | '#329FD9' |  |  |
-| GreetingMessage | **virtual** | No |  |  | LocationLanguageItem |
 | IsDeleted | bit | No | 0 |  |  |
 | RowVersion | timestamp | No |  |  |  |
 
@@ -78,7 +77,7 @@
 | Id | uniqueidentifier | No | NEWID() | Yes |  |
 | SiteId | int | No |  |  |  |  |
 | LocationId | uniqueidentifier | No |  |  |  |  |
-| SystemName | nvarchar(256) | No |  |  |  | Identity Name |
+| SystemName | nvarchar(256) | No | '' |  |  | Identity Name |
 | Text | nvarchar(MAX) | No | '' |  |  |  |
 | IsDeleted | bit | No | 0 |  |  |
 | RowVersion | timestamp | No |  |  |  |  |
@@ -94,17 +93,16 @@
 | Id | uniqueidentifier | No | NEWID() | Yes |  |
 | SiteId | int | No |  |  |  |
 | LocationId | uniqueidentifier | No |  |  |  |
-| Name | nvarchar(256) | No |  |  |  |
-| Description | nvarchar(2048) | No |  |  |  |
+| Name | nvarchar(256) | No | '' |  |  |
+| Description | nvarchar(2048) | No | '' |  |  |
 | TimeZone | nvarchar(64) | No | {Site.TimeZone} |  | Windows TimeZone Name |
 | IsClosed | bit | No | 0 |  |  |
 | IsStatusManuallyControlled | bit | No | 0 |  |  |
 | InitialServeDuration | int | No | 30 |  | in Minutes |
-| ServiceAgentCount | int | No |  |  |  |
+| ServiceAgentCount | int | No | 1 |  |  |
 | SummonToExpiredTime | int | No | 15 |  | in Minutes, 0 means not expire |
 | ExpiredToRemovedTime | int | No | 60 |  | in Minutes |
 | AboutToStartNotificationMinutes | int | No | 10 |  | in Minutes |
-| GreetingMessage | **virtual** | No |  |  | from QueueLanguageItem |
 | IsDeleted | bit | No | 0 |  |  |
 | RowVersion | timestamp | No |  |  |  |
 
@@ -134,7 +132,7 @@
 | Id | uniqueidentifier | No | NEWID() | Yes |  |
 | SiteId | int | No |  |  |  |  |
 | QueueId | uniqueidentifier | No |  |  |  |  |
-| SystemName | nvarchar(256) | No |  |  |  | Identity Name |
+| SystemName | nvarchar(256) | No | '' |  |  | Identity Name |
 | Text | nvarchar(MAX) | No | '' |  |  |  |
 | IsDeleted | bit | No | 0 |  |  |
 | RowVersion | timestamp | No |  |  |  |  |
@@ -150,8 +148,8 @@
 | Id | uniqueidentifier | No | NEWID() | Yes |  |
 | SiteId | int | No |  |  |  |
 | QueueId | uniqueidentifier | No |  |  |  |
-| SystemName | nvarchar(256) | No |  |  | Identity Name |
-| Text | nvarchar(MAX) | No |  |  |  |
+| SystemName | nvarchar(256) | No | '' |  | Identity Name |
+| Text | nvarchar(MAX) | No | '' |  |  |
 | IsDeleted | bit | No | 0 |  |  |
 | RowVersion | timestamp | No |  |  |  |
 
@@ -181,14 +179,13 @@
 | Id | uniqueidentifier | No | NEWID() | Yes |  |
 | SiteId | int | No |  |   | |
 | QueueId | uniqueidentifier | No |  |  |  |
-| Name | nvarchar(256) | No |  |  | Identity Name |
-| DisplayName | nvarchar(256) | No |  |  | Display Name |
+| Name | nvarchar(256) | No | '' |  | Identity Name |
+| DisplayName | nvarchar(256) | No | '' |  | Display Name |
 | Type | int | No | 1 |  |  |
 | Order | int | No | 1 |  | Start from 1 |
 | IsSystem | bit | No | 0 |  |  |
 | IsRequired | bit | No | 0 |  |  |
 | IsVisible | bit | No | 1 |  |  |
-| Options | nvarchar(MAX) | No |  |  |  |
 | IsDeleted | bit | No | 0 |  |  |
 | RowVersion | timestamp | No |  |  |  |
 
@@ -204,7 +201,7 @@
 | SiteId | int | No |  |   | |
 | QueueId | uniqueidentifier | No |  |  |  |
 | FieldId | uniqueidentifier | No |  |  |  |
-| Value | nvarchar(256) | No |  |  |  |
+| Value | nvarchar(256) | No | '' |  |  |
 | Order | int | No | 1 |  | Start from 1 |
 | IsDeleted | bit | No | 0 |  |  |
 | RowVersion | timestamp | No |  |  |  |
@@ -221,8 +218,8 @@
 | SiteId | int | No |  |  |  |
 | QueueId | uniqueidentifier | No |  |  |  |
 | DayOfWeek | nvarchar(128) | No | 'Monday' |  |  |
-| StartTime | datetime | No |  |  |  |
-| EndTime | datetime | No |  |  |  |
+| StartTime | datetime2 | No |  |  |  |
+| EndTime | datetime2 | No |  |  |  |
 | IsDeleted | bit | No | 0 |  |  |
 | RowVersion | timestamp | No |  |  |  |
 
@@ -237,8 +234,8 @@
 | Id | uniqueidentifier | No | NEWID() | Yes |  |
 | SiteId | int | No |  |  |  |
 | QueueId | uniqueidentifier | No |  |  |  |
-| Name | nvarchar(256) | No |  |  |  |
-| Date | datetime | No |  |  |  |
+| Name | nvarchar(256) | No | '' |  |  |
+| Date | datetime2 | No |  |  |  |
 | IsDeleted | bit | No | 0 |  |  |
 | RowVersion | timestamp | No |  |  |  |
 
@@ -253,10 +250,10 @@
 | Id | uniqueidentifier | No | NEWID() | Yes |  |
 | SiteId | int | No |  |  |  |
 | GatewayProvider | nvarchar(256) | No | 'Twilio' |  |  |
-| AuthorizeUrl | nvarchar(2048) | No |  |  |  |
+| AuthorizeUrl | nvarchar(2048) | No | '' |  |  |
 | GrantType | smallint | No |  |  |  |
-| AccessKey | nvarchar(4096) | No |  |  |  |
-| RefreshToken | nvarchar(4096) | No |  |  |  |
+| AccessKey | nvarchar(4096) | No | '' |  |  |
+| RefreshToken | nvarchar(4096) | No | '' |  |  |
 | IsDeleted | bit | No | 0 |  |  |
 | RowVersion | timestamp | No |  |  |  |
 
@@ -276,11 +273,11 @@
 | OriginalEstimatedWaitingTime | int | No |  |  |  |
 | CurrentEstimatedWaitingTime | int | No | Same as OriginalEstimatedWaitingTime |  |  |
 | CurrentQueuePosition | int | No |  |  |  |
-| CreateTime | datetime | No |  |  |  |
-| SummonTime | datetime | No |  |  |  |
-| ArriveTime | datetime | No |  |  |  |
-| ExpireTime | datetime | No |  |  |  |
-| EndTime | datetime | No |  |  |  |
+| CreateTime | datetime2 | No |  |  |  |
+| SummonTime | datetime2 | No |  |  |  |
+| ArriveTime | datetime2 | No |  |  |  |
+| ExpireTime | datetime2 | No |  |  |  |
+| EndTime | datetime2 | No |  |  |  |
 | IsDeleted | bit | No | 0 |  |  |
 
 #### Index
@@ -295,9 +292,9 @@
 | SiteId | int | No |  |  |  |
 | QueueSessionId | uniqueidentifier | No |  |  |  |
 | FieldId | uniqueidentifier | No |  |  |  |
-| FieldName | nvarchar(256) | No |  |  |  |
-| DisplayName | nvarchar(256) | No |  |  |  |
-| FieldValue | nvarchar(2048) | No |  |  |  |
+| FieldName | nvarchar(256) | No | '' |  |  |
+| DisplayName | nvarchar(256) | No | '' |  |  |
+| FieldValue | nvarchar(2048) | No | '' |  |  |
 | IsDeleted | bit | No | 0 |  |  |
 
 #### Index
@@ -312,12 +309,12 @@
 | SiteId | int | No |  |  |  |
 | QueueId | uniqueidentifier | No |  |  |  |
 | QueueSessionId | uniqueidentifier | No |  |  |  |
-| From | nvarchar(256) | No |  |  |  |
-| To | nvarchar(256) | No |  |  |  |
+| From | nvarchar(256) | No | '' |  |  |
+| To | nvarchar(256) | No | '' |  |  |
 | NotificationType | smallint | No |  |  |  |
 | ChannelType | smallint | No | 'SMS' |  |  |
-| Content | nvarchar(2048) | No |  |  |  |
-| SentTime | datetime | No |  |  |  |
+| Content | nvarchar(2048) | No | '' |  |  |
+| SentTime | datetime2 | No |  |  |  |
 | IsDeleted | bit | No | 0 |  |  |
 
 #### Index
@@ -339,11 +336,11 @@
 | TimeToSummonedFromCreated | int | No |  |  | in seconds |
 | TimeToArrivedFromSummoned | int | No |  |  | in seconds |
 | OriginalEstimatedWaitingTime | int | No |  |  |  |
-| CreateTime | datetime | No |  |  |  |
-| SummonTime | datetime | No |  |  |  |
-| ArriveTime | datetime | No |  |  |  |
-| ExpireTime | datetime | No |  |  |  |
-| EndTime | datetime | No |  |  |  |
+| CreateTime | datetime2 | No |  |  |  |
+| SummonTime | datetime2 | No |  |  |  |
+| ArriveTime | datetime2 | No |  |  |  |
+| ExpireTime | datetime2 | No |  |  |  |
+| EndTime | datetime2 | No |  |  |  |
 | IsDeleted | bit | No | 0 |  |  |
 
 #### Index
@@ -358,9 +355,9 @@
 | SiteId | int | No |  |  |  |
 | QueueSessionId | uniqueidentifier | No |  |  |  |
 | FieldId | uniqueidentifier | No |  |  |  |
-| FieldName | nvarchar(256) | No |  |  |  |
-| DisplayName | nvarchar(256) | No |  |  |  |
-| FieldValue | nvarchar(2048) | No |  |  |  |
+| FieldName | nvarchar(256) | No | '' |  |  |
+| DisplayName | nvarchar(256) | No | '' |  |  |
+| FieldValue | nvarchar(2048) | No | '' |  |  |
 | IsDeleted | bit | No | 0 |  |  |
 
 #### Index
