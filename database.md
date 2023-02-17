@@ -100,7 +100,7 @@
 | IsClosed | bit | No | 0 |  |  |
 | IsStatusManuallyControlled | bit | No | 0 |  |  |
 | InitialServeDuration | int | No | 30 |  | in Minutes |
-| ServingAgentCount | int | No |  |  |  |
+| ServiceAgentCount | int | No |  |  |  |
 | SummonToExpiredTime | int | No | 15 |  | in Minutes, 0 means not expire |
 | ExpiredToRemovedTime | int | No | 60 |  | in Minutes |
 | AboutToStartNotificationMinutes | int | No | 10 |  | in Minutes |
@@ -276,17 +276,17 @@
 | OriginalEstimatedWaitingTime | int | No |  |  |  |
 | CurrentEstimatedWaitingTime | int | No | Same as OriginalEstimatedWaitingTime |  |  |
 | CurrentQueuePosition | int | No |  |  |  |
-| CreatedTime | datetime | No |  |  |  |
-| SummonedTime | datetime | No |  |  |  |
-| ArrivedTime | datetime | No |  |  |  |
-| ExpiredTime | datetime | No |  |  |  |
-| EndedTime | datetime | No |  |  |  |
+| CreateTime | datetime | No |  |  |  |
+| SummonTime | datetime | No |  |  |  |
+| ArriveTime | datetime | No |  |  |  |
+| ExpireTime | datetime | No |  |  |  |
+| EndTime | datetime | No |  |  |  |
 | IsDeleted | bit | No | 0 |  |  |
 
 #### Index
 | Name | Colomns(Order) | Includes | Is Clustered | Is Unique | Remark |
 |--|--|--|--|--|--|
-| IX_T_Queue_QueueSession_SiteId_CreatedTime_QueueId | SiteId asc, CreatedTime desc, QueueId asc |  | Yes | No |  |
+| IX_T_Queue_QueueSession_SiteId_CreateTime_QueueId | SiteId asc, CreateTime desc, QueueId asc |  | Yes | No |  |
 
 ### QueueSessionFieldResult - T_Queue_QueueSessionFieldResult
 | Name | Type | Nullable | Default Value | Is Primary Key | Remark |
@@ -339,17 +339,17 @@
 | TimeToSummonedFromCreated | int | No |  |  | in seconds |
 | TimeToArrivedFromSummoned | int | No |  |  | in seconds |
 | OriginalEstimatedWaitingTime | int | No |  |  |  |
-| CreatedTime | datetime | No |  |  |  |
-| SummonedTime | datetime | No |  |  |  |
-| ArrivedTime | datetime | No |  |  |  |
-| ExpiredTime | datetime | No |  |  |  |
-| EndedTime | datetime | No |  |  |  |
+| CreateTime | datetime | No |  |  |  |
+| SummonTime | datetime | No |  |  |  |
+| ArriveTime | datetime | No |  |  |  |
+| ExpireTime | datetime | No |  |  |  |
+| EndTime | datetime | No |  |  |  |
 | IsDeleted | bit | No | 0 |  |  |
 
 #### Index
 | Name | Colomns(Order) | Includes | Is Clustered | Is Unique | Remark |
 |--|--|--|--|--|--|
-| IX_T_Queue_QueueSession_SiteId_CreatedTime_QueueId | SiteId asc, CreatedTime desc, QueueId asc |  | Yes | No |  |
+| IX_T_Queue_QueueSession_SiteId_CreateTime_QueueId | SiteId asc, CreateTime desc, QueueId asc |  | Yes | No |  |
 
 ### QueueSessionFieldResult - T_Queue_QueueSessionFieldResult
 | Name | Type | Nullable | Default Value | Is Primary Key | Remark |
