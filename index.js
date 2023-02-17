@@ -1,6 +1,4 @@
-const { Console } = require("console");
 const fs = require("fs");
-const { stringify } = require("querystring");
 
 const tables = new Array();
 
@@ -68,8 +66,6 @@ for (let lineIndex = 0; lineIndex < docLines.length; lineIndex++) {
     }
 }
 
-// console.log(JSON.stringify(tables));
-
 const ddl_table_template = fs.readFileSync(`ddl_table_template.sql`, {
     encoding: "utf8",
   });
@@ -94,6 +90,7 @@ for (const tableObj of tables) {
                     .replaceAll('#TableName#', tableObj.name)
                     .replaceAll('#joinedColumns#', index.columns.toLowerCase().replaceAll('asc','').replaceAll('desc','').replaceAll(',','_').replaceAll(' ',''))
                     .replaceAll('#indexColumns#', index.columns)
+                    .replaceAll('#clustered#', !index.isClustered ? 'NON' : '')
                 + '\n';
         }
     }
