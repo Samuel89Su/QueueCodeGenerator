@@ -26,7 +26,7 @@
 | PartnerId | int | No |  |  |  |
 | Language | smallint | No |  |  |  |
 | NotificationType | smallint | No |  |  |  |
-| ChannelType | smallint | No | 'SMS' |  |  |
+| ChannelType | smallint | No | 1 |  | 1: SMS |
 | SystemName | nvarchar(256) | No | '' |  | Identity Name, As Enum in Code |
 | Name | nvarchar(256) | No | '' |  | Display Name |
 | DefaultText | nvarchar(MAX) | No | '' |  |  |
@@ -100,7 +100,7 @@
 | IsStatusManuallyControlled | bit | No | 0 |  |  |
 | InitialServeDuration | int | No | 30 |  | in Minutes |
 | ServiceAgentCount | int | No | 1 |  |  |
-| SummonToExpiredTime | int | No | 15 |  | in Minutes, 0 means not expire |
+| SummonToExpiredTime | int | No | 15 |  | in Minutes, 0 means never set to Expired/noShow |
 | ExpiredToRemovedTime | int | No | 60 |  | in Minutes |
 | AboutToStartNotificationMinutes | int | No | 10 |  | in Minutes |
 | IsDeleted | bit | No | 0 |  |  |
@@ -148,6 +148,8 @@
 | Id | uniqueidentifier | No | NEWID() | Yes |  |
 | SiteId | int | No |  |  |  |
 | QueueId | uniqueidentifier | No |  |  |  |
+| NotificationType | smallint | No |  |  |  |
+| ChannelType | smallint | No | 1 |  | 1: SMS |
 | SystemName | nvarchar(256) | No | '' |  | Identity Name |
 | Text | nvarchar(MAX) | No | '' |  |  |
 | IsDeleted | bit | No | 0 |  |  |
@@ -312,7 +314,7 @@
 | From | nvarchar(256) | No | '' |  |  |
 | To | nvarchar(256) | No | '' |  |  |
 | NotificationType | smallint | No |  |  |  |
-| ChannelType | smallint | No | 'SMS' |  |  |
+| ChannelType | smallint | No | 1 |  | 1: SMS |
 | Content | nvarchar(2048) | No | '' |  |  |
 | SentTime | datetime2 | No |  |  |  |
 | IsDeleted | bit | No | 0 |  |  |
