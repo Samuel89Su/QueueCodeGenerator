@@ -5,8 +5,8 @@
 |--|--|--|--|--|--|
 | Id | uniqueidentifier | No | NEWID() | Yes |  |
 | PartnerId | int | No |  |  |  |
-| Language | smallint | No |  |  |  |
-| Category | smallint | No |  |  | 'Location'、'Queue' |
+| Language | smallint | No | 0 |  | 0: English..... |
+| Category | smallint | No | 1 |  | 1: Location, 2: Queue |
 | SystemName | nvarchar(256) | No | '' |  | Identity Name, As Enum in Code |
 | Name | nvarchar(256) | No | '' |  | Display Name |
 | DefaultText | nvarchar(MAX) | No | '' |  |  |
@@ -46,7 +46,7 @@
 | Id | uniqueidentifier | No | NEWID() | Yes |  |
 | SiteId | int | No |  |  |  |
 | Name | nvarchar(256) | No | '' |  |  |
-| Logo | nvarbinary(MAX) | No |  |  |  |
+| Logo | image | No |  |  |  |
 | ThemeColor | nvarchar(32) | No | '#329FD9' |  |  |
 | IsDeleted | bit | No | 0 |  |  |
 | RowVersion | timestamp | No |  |  |  |
@@ -217,7 +217,7 @@
 | Id | uniqueidentifier | No | NEWID() | Yes |  |
 | SiteId | int | No |  |  |  |
 | QueueId | uniqueidentifier | No |  |  |  |
-| DayOfWeek | nvarchar(128) | No | 'Monday' |  |  |
+| DayOfWeek | smallint | No |  |  | Sunday:0....Saturday:6  |
 | StartTime | datetime2 | No |  |  |  |
 | EndTime | datetime2 | No |  |  |  |
 | IsDeleted | bit | No | 0 |  |  |
