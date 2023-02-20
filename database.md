@@ -25,9 +25,8 @@
 | Id | uniqueidentifier | No | NEWID() | Yes |  |
 | PartnerId | int | No |  |  |  |
 | Language | smallint | No |  |  |  |
-| NotificationType | smallint | No |  |  |  |
+| NotificationType | smallint | No | 1 |  | 1: SessionCreated, 2: AboutToStart, 3: Summoned, 4: Expired, 5: Removed  |
 | ChannelType | smallint | No | 1 |  | 1: SMS |
-| SystemName | nvarchar(256) | No | '' |  | Identity Name, As Enum in Code |
 | Name | nvarchar(256) | No | '' |  | Display Name |
 | DefaultText | nvarchar(MAX) | No | '' |  |  |
 | Macros | nvarchar(2048) | No | '' |  |  |
@@ -148,9 +147,8 @@
 | Id | uniqueidentifier | No | NEWID() | Yes |  |
 | SiteId | int | No |  |  |  |
 | QueueId | uniqueidentifier | No |  |  |  |
-| NotificationType | smallint | No |  |  |  |
-| ChannelType | smallint | No | 1 |  | 1: SMS |
-| SystemName | nvarchar(256) | No | '' |  | Identity Name |
+| NotificationType | smallint | No | 1 |  |  |
+| ChannelType | smallint | No | 1 |  |  |
 | Text | nvarchar(MAX) | No | '' |  |  |
 | IsDeleted | bit | No | 0 |  |  |
 | RowVersion | timestamp | No |  |  |  |
@@ -158,7 +156,7 @@
 #### Index
 | Name | Colomns(Order) | Includes | Is Clustered | Is Unique | Remark |
 |--|--|--|--|--|--|
-| IX_T_Queue_QueueNotificationTemplate_SiteId_QueueId_SystemName | SiteId asc, QueueId asc, SystemName asc |  | No | No |  |
+| IX_T_Queue_QueueNotificationTemplate_SiteId_QueueId_NotificationType | SiteId asc, QueueId asc, NotificationType asc |  | No | No |  |
 
 ### AgentServiceInQueue - T_Queue_AgentServiceInQueue
 | Name | Type | Nullable | Default Value | Is Primary Key | Remark |
@@ -270,8 +268,8 @@
 | Id | uniqueidentifier | No | NEWID() | Yes |  |
 | SiteId | int | No |  |  |  |
 | QueueId | uniqueidentifier | No |  |  |  |
-| ServiceAgentId | uniqueidentifier | No |  |  |  |
-| Status | int | No |  |  |  |
+| ServiceAgentId | uniqueidentifier | No |  |  | {Agent} |
+| Status | int | No |  |  | low 4 bits reserved for by who, 1: bySystem, 2: byAgent.  16: Created, 32: Summoned, 64: Arrived, 128: Ended, 256: Expired(NoShow), 512: Removed, 513 RemovedBySystem, 514: RemovedByAgent |
 | OriginalEstimatedWaitingTime | int | No |  |  |  |
 | CurrentEstimatedWaitingTime | int | No | Same as OriginalEstimatedWaitingTime |  |  |
 | CurrentQueuePosition | int | No |  |  |  |
@@ -313,8 +311,8 @@
 | QueueSessionId | uniqueidentifier | No |  |  |  |
 | From | nvarchar(256) | No | '' |  |  |
 | To | nvarchar(256) | No | '' |  |  |
-| NotificationType | smallint | No |  |  |  |
-| ChannelType | smallint | No | 1 |  | 1: SMS |
+| NotificationType | smallint | No | 1 |  |  |
+| ChannelType | smallint | No | 1 |  |  |
 | Content | nvarchar(2048) | No | '' |  |  |
 | SentTime | datetime2 | No |  |  |  |
 | IsDeleted | bit | No | 0 |  |  |
