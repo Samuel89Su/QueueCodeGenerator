@@ -250,7 +250,8 @@
 | Id | uniqueidentifier | No | NEWID() | Yes |  |
 | SiteId | int | No |  |  |  |
 | AccountSID | nvarchar(2048) | No | '' |  |  |
-| AuthToken | nvarchar(2048) | No |  |  |  |
+| AuthToken | nvarchar(2048) | No | '' |  |  |
+| PhoneNumberSID | nvarchar(2048) | No | '' |  |  |
 | IsDeleted | bit | No | 0 |  |  |
 | RowVersion | timestamp | No |  |  |  |
 
