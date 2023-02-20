@@ -244,16 +244,13 @@
 |--|--|--|--|--|--|
 | IX_T_Queue_Holiday_SiteId_QueueId | SiteId asc, QueueId asc |  | No | No |  |
 
-### SMSIntegrationConfig - T_Queue_SMSIntegrationConfig
+### SMSIntegrationConfig - T_Queue_TwilioSMSIntegrationConfig
 | Name | Type | Nullable | Default Value | Is Primary Key | Remark |
 |--|--|--|--|--|--|
 | Id | uniqueidentifier | No | NEWID() | Yes |  |
 | SiteId | int | No |  |  |  |
-| GatewayProvider | nvarchar(256) | No | 'Twilio' |  |  |
-| AuthorizeUrl | nvarchar(2048) | No | '' |  |  |
-| GrantType | smallint | No |  |  |  |
-| AccessKey | nvarchar(4096) | No | '' |  |  |
-| RefreshToken | nvarchar(4096) | No | '' |  |  |
+| AccountSID | nvarchar(2048) | No | '' |  |  |
+| AuthToken | nvarchar(2048) | No |  |  |  |
 | IsDeleted | bit | No | 0 |  |  |
 | RowVersion | timestamp | No |  |  |  |
 

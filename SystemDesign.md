@@ -2,7 +2,7 @@
 1.  应用模块拆分
 2.  模块间交互
 3.  数据流
-4.  业务流程
+4.  业务逻辑/流程
 
 ##  应用模块
 1. Migrator - Comm100.Register.Site, Comm100.Register.Partner
@@ -27,17 +27,35 @@
       1. Join
       2. Status
    3. AgentConsole API
-7. QueuePersistence？？？
-   1. 转移持久化数据到 Reporting 库
-8. ReportingQuery???
+7. ReportingQuery???
    1. RealTime/Today 报表是否从 ReportingQuery 输出
-9. QueueService
-    1.  SMS(Twilio)集成
+8. QueueService
+    1.  Notification & SMS(Twilio)集成
     2.  Background Workers
-    3.  AboutToStart 检测
-    4.  Remove Expired Visitor from Queue
-    5.  Remove all from Queue before next working hour
-    6.  事件与通知解耦
+        1.  AboutToStart 检测
+        2.  Expired 检测
+        3.  Remove Expired Visitor from Queue
+        4.  Remove all from Queue before next working hour
+        5.  Clear data after shift, QueueSession, QueueSessionFieldResult, QueueSessionNotification
+    3.  事件与通知解耦
 
-## Tasks
+### Tasks
 1. 应用模块数据库权限
+
+## 模块间交互
+
+## 数据流
+
+## 业务逻辑/流程
+1. Mark Sommoned Session as Expired after a configured duration automatically.
+   1. Set a timer.
+2. Clear QueueSession before next shift automatically.
+   1. Set a timer.
+   2. Persist QueueSession in Site DB into Reporting DB.
+   3. Delete QueueSession in Site DB.
+3. Open queue when shift start automatically.
+   1. Set a timer.
+4. Close queue when shift end automatically.
+   1. Set a timer.
+5. Close Queue if next wait time exceed over shift end. When to do next wait time assessment???
+   1. After Joined/End/Expired/Removed
