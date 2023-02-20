@@ -325,7 +325,6 @@
 | Name | Type | Nullable | Default Value | Is Primary Key | Remark |
 |--|--|--|--|--|--|
 | Id | uniqueidentifier | No |  | Yes |  |
-| SiteId | int | No |  |  |  |
 | QueueId | uniqueidentifier | No |  |  |  |
 | ServiceAgentId | uniqueidentifier | No |  |  |  |
 | Status | int | No |  |  |  |
@@ -344,13 +343,12 @@
 #### Index
 | Name | Colomns(Order) | Includes | Is Clustered | Is Unique | Remark |
 |--|--|--|--|--|--|
-| IX_T_Queue_QueueSession_SiteId_CreateTime_QueueId | SiteId asc, CreateTime desc, QueueId asc |  | Yes | No |  |
+| IX_T_Queue_QueueSession_CreateTime_QueueId | CreateTime desc, QueueId asc |  | Yes | No |  |
 
 ### QueueSessionFieldResult - T_Queue_QueueSessionFieldResult
 | Name | Type | Nullable | Default Value | Is Primary Key | Remark |
 |--|--|--|--|--|--|
 | Id | uniqueidentifier | No | NEWID() | Yes |  |
-| SiteId | int | No |  |  |  |
 | QueueSessionId | uniqueidentifier | No |  |  |  |
 | FieldId | uniqueidentifier | No |  |  |  |
 | FieldName | nvarchar(256) | No | '' |  |  |
@@ -361,4 +359,4 @@
 #### Index
 | Name | Colomns(Order) | Includes | Is Clustered | Is Unique | Remark |
 |--|--|--|--|--|--|
-| IX_T_Queue_QueueSessionFieldResult_SiteId_QueueSessionId | SiteId asc, QueueSessionId asc |  | No | No |  |
+| IX_T_Queue_QueueSessionFieldResult_QueueSessionId | QueueSessionId asc |  | No | No |  |
