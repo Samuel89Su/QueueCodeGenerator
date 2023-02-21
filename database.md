@@ -24,7 +24,7 @@
 |--|--|--|--|--|--|
 | Id | uniqueidentifier | No | NEWID() | Yes |  |
 | PartnerId | int | No |  |  |  |
-| Language | smallint | No |  |  |  |
+| Language | smallint | No | 0 |  |  |
 | NotificationType | smallint | No | 1 |  | 1: SessionCreated, 2: AboutToStart, 3: Summoned, 4: NoShow, 5: Removed  |
 | ChannelType | smallint | No | 1 |  | 1: SMS |
 | Name | nvarchar(256) | No | '' |  | Display Name |
@@ -64,12 +64,12 @@
 | LocationId | uniqueidentifier | No |  |  |  |
 | Name | nvarchar(256) | No | '' |  |  |
 | Description | nvarchar(2048) | No | '' |  |  |
-| TimeZone | nvarchar(64) | No | {Site.TimeZone} |  | Windows TimeZone Name |
+| TimeZone | nvarchar(64) | No | 'Pacific Standard Time' |  | Windows TimeZone Name |
 | IsClosed | bit | No | 0 |  |  |
 | IsStatusManuallyControlled | bit | No | 0 |  |  |
 | InitialServeDuration | int | No | 30 |  | in Minutes |
 | ServiceAgentCount | int | No | 1 |  |  |
-| AvgSessionServeDuration | int | No | Same as InitialServeDuration |  | Calc & update after session end |
+| AvgSessionServeDuration | int | No | 30 |  | Calc & update after session end |
 | SummonToNoShowTime | int | No | 15 |  | in Minutes, 0 means never set to NoShow |
 | NoShowToRemovedTime | int | No | 60 |  | in Minutes |
 | AboutToStartNotificationMinutes | int | No | 10 |  | in Minutes |
@@ -240,7 +240,7 @@
 | ServiceAgentId | uniqueidentifier | No |  |  | {Agent} |
 | Status | int | No |  |  | low 4 bits reserved for by who, 1: bySystem, 2: byAgent.  16: Created, 32: Summoned, 64: Arrived, 128: Ended, 256: NoShow, 512: Removed, 513 RemovedBySystem, 514: RemovedByAgent |
 | OriginalEstimatedWaitingTime | int | No |  |  |  |
-| EstimatedWaitingTime | int | No | Same as OriginalEstimatedWaitingTime |  |  |
+| EstimatedWaitingTime | int | No |  |  |  |
 | QueuePosition | int | No | 1 |  |  |
 | CreatedTime | datetime2 | No |  |  |  |
 | SummonedTime | datetime2 | No |  |  |  |
@@ -252,7 +252,7 @@
 #### Index
 | Name | Colomns(Order) | Includes | Is Clustered | Is Unique | Remark |
 |--|--|--|--|--|--|
-| IX_T_Queue_QueueSession_SiteId_CreateTime_QueueId | SiteId asc, CreateTime desc, QueueId asc |  | Yes | No |  |
+| IX_T_Queue_QueueSession_SiteId_CreatedTime_QueueId | SiteId asc, CreatedTime desc, QueueId asc |  | Yes | No |  |
 
 ### QueueSessionFieldResult - T_Queue_QueueSessionFieldResult
 | Name | Type | Nullable | Default Value | Is Primary Key | Remark |
