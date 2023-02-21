@@ -64,6 +64,13 @@ for (let lineIndex = 0; lineIndex < docLines.length; lineIndex++) {
             isPrimaryKey: props[5].trim().toLowerCase() === 'yes' ? true : false,
         });
     }
+
+    if (lineIndex === docLines.length - 1) {
+        // push last table
+        if (table.name) {
+            tables.push(table);
+        }
+    }
 }
 
 const ddl_table_template = fs.readFileSync(`ddl_table_template.sql`, {
@@ -95,11 +102,12 @@ for (const tableObj of tables) {
         }
     }
 
+    console.log(`${tableObj.schema}.${tableObj.name}`);
     let ddl = ddl_table_template
         .replaceAll('#schema#', tableObj.schema)
         .replaceAll('#TableName#', tableObj.name)
         .replaceAll('#columns#', columns)
         .replaceAll('#indexes#', ddl_index);
 
-    fs.writeFile(`./ddlSqls/DDL_${tableObj.schema}_${tableObj.name}.sql`, ddl, ()=>{});
+    fs.writeFileSync(`./ddlSqls/DDL_${tableObj.schema}_${tableObj.name}.sql`, ddl);
 }

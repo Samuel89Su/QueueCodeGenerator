@@ -316,7 +316,7 @@
 #### Index
 | Name | Colomns(Order) | Includes | Is Clustered | Is Unique | Remark |
 |--|--|--|--|--|--|
-| IX_T_Queue_QueueSession_CreateTime_QueueId | CreateTime desc, QueueId asc |  | Yes | No |  |
+| IX_T_Queue_QueueSession_CreatedTime_QueueId | CreatedTime desc, QueueId asc |  | Yes | No |  |
 
 ### QueueSessionFieldResult - T_Queue_QueueSessionFieldResult
 | Name | Type | Nullable | Default Value | Is Primary Key | Remark |
