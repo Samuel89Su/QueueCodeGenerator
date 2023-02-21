@@ -16,6 +16,7 @@
    2. Default Location 初始化
 3. ChildPartnerAPI
    1. Center 库建表
+   2. Center -> Platform 数据同步
 4. EntityDataReciver
    1. Reporting 库建表
 5. SqlScripts(发布后合并到 master) - 迁移建表
@@ -29,18 +30,16 @@
       2. Status
       3. Queue
    3. AgentConsole API
-8. ReportingQuery???
-   1. RealTime/Today 报表是否从 ReportingQuery 输出
+8. QueueNotification
+   1. Notification & SMS(Twilio)集成
 9.  QueueService
-    1.  Notification & SMS(Twilio)集成
-    2.  Background Workers
+    1.  Background Workers
         1.  AboutToStart 检测
         2.  Expired 检测
         3.  Remove Expired Visitor from Queue
         4.  Remove all from Queue before next working hour
         5.  Move Data to Reporting DB
         6.  Clear data after shift, QueueSession, QueueSessionFieldResult, QueueSessionNotification
-    3.  事件与通知解耦？？？
 
 ### Tasks
 1. 应用模块数据库权限

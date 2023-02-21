@@ -69,6 +69,7 @@
 | IsStatusManuallyControlled | bit | No | 0 |  |  |
 | InitialServeDuration | int | No | 30 |  | in Minutes |
 | ServiceAgentCount | int | No | 1 |  |  |
+| AvgSessionServeDuration | int | No | Same as InitialServeDuration |  | Calc & update after session end |
 | SummonToNoShowTime | int | No | 15 |  | in Minutes, 0 means never set to NoShow |
 | NoShowToRemovedTime | int | No | 60 |  | in Minutes |
 | AboutToStartNotificationMinutes | int | No | 10 |  | in Minutes |
