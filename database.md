@@ -239,12 +239,12 @@
 | ServiceAgentId | uniqueidentifier | No |  |  | {Agent} |
 | Status | int | No |  |  | low 4 bits reserved for by who, 1: bySystem, 2: byAgent.  16: Created, 32: Summoned, 64: Arrived, 128: Ended, 256: NoShow, 512: Removed, 513 RemovedBySystem, 514: RemovedByAgent |
 | OriginalEstimatedWaitingTime | int | No |  |  |  |
-| CurrentEstimatedWaitingTime | int | No | Same as OriginalEstimatedWaitingTime |  |  |
-| CurrentQueuePosition | int | No |  |  |  |
+| EstimatedWaitingTime | int | No | Same as OriginalEstimatedWaitingTime |  |  |
+| QueuePosition | int | No | 1 |  |  |
 | CreateTime | datetime2 | No |  |  |  |
 | SummonTime | datetime2 | No |  |  |  |
 | ArriveTime | datetime2 | No |  |  |  |
-| ExpireTime | datetime2 | No |  |  |  |
+| NoShowTime | datetime2 | No |  |  |  |
 | EndTime | datetime2 | No |  |  |  |
 | IsDeleted | bit | No | 0 |  |  |
 
@@ -298,15 +298,17 @@
 | QueueId | uniqueidentifier | No |  |  |  |
 | ServiceAgentId | uniqueidentifier | No |  |  |  |
 | Status | int | No |  |  |  |
-| TimeToEndedFromArrived | int | No |  |  | in seconds |
-| TimeToArrivedFromCreated | int | No |  |  | in seconds |
-| TimeToSummonedFromCreated | int | No |  |  | in seconds |
-| TimeToArrivedFromSummoned | int | No |  |  | in seconds |
+| TimeFromCreatedToArrived | int | No |  |  | in seconds |
+| TimeFromArrivedToEnded | int | No |  |  | in seconds |
+| TimeFromCreatedToSummoned | int | No |  |  | in seconds |
+| TimeFromSummonedToArrived | int | No |  |  | in seconds |
 | OriginalEstimatedWaitingTime | int | No |  |  |  |
+| EstimatedWaitingTime | int | No | Same as OriginalEstimatedWaitingTime |  |  |
+| QueuePosition | int | No | 1 |  |  |
 | CreateTime | datetime2 | No |  |  |  |
 | SummonTime | datetime2 | No |  |  |  |
 | ArriveTime | datetime2 | No |  |  |  |
-| ExpireTime | datetime2 | No |  |  |  |
+| NoShowTime | datetime2 | No |  |  |  |
 | EndTime | datetime2 | No |  |  |  |
 | IsDeleted | bit | No | 0 |  |  |
 
