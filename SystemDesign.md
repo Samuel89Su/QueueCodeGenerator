@@ -3,6 +3,7 @@
 2.  模块间交互
 3.  数据流
 4.  业务逻辑/流程
+5.  任务优先级与工作量评估
 
 ##  应用模块
 1. Migrator - Comm100.Register.Site, Comm100.Register.Partner
@@ -43,7 +44,6 @@
 
 ### Tasks
 1. 应用模块数据库权限
-2. Center -> Platform 数据同步
 
 ## 模块间交互
 
@@ -63,3 +63,18 @@ QueueAPI -> Site DB -> QueueService -> Reporting DB
    1. Set a timer.
 5. Close Queue if next wait time exceed over shift end. When to do next wait time assessment???
    1. After Joined/End/Expired/Removed
+
+
+## 任务优先级与工作量评估
+1. Migrator -  1.5d
+2. ChildPartnerAPI 与 Center 数据同步 -  0.5d
+3. QueueAPI-VisitorSide -  2d
+4. QueueAPI-AgentSide -  5d
+5. QueueAPI-ControlPanel + AutoCodingDB   -  5.5d
+6. QueueService   -  3d
+7. RealTime/Today -  0.5d
+8. QueueNotification -  0.5d
+9.  RegisterAPI -  0.5d
+10. EntityDataReciver -  0.5d
+11. SqlScripts
+12. 应用模块数据库权限

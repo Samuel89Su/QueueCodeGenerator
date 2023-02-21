@@ -242,11 +242,11 @@
 | OriginalEstimatedWaitingTime | int | No |  |  |  |
 | EstimatedWaitingTime | int | No | Same as OriginalEstimatedWaitingTime |  |  |
 | QueuePosition | int | No | 1 |  |  |
-| CreateTime | datetime2 | No |  |  |  |
-| SummonTime | datetime2 | No |  |  |  |
-| ArriveTime | datetime2 | No |  |  |  |
+| CreatedTime | datetime2 | No |  |  |  |
+| SummonedTime | datetime2 | No |  |  |  |
+| ArrivedTime | datetime2 | No |  |  |  |
 | NoShowTime | datetime2 | No |  |  |  |
-| EndTime | datetime2 | No |  |  |  |
+| EndedTime | datetime2 | No |  |  |  |
 | IsDeleted | bit | No | 0 |  |  |
 
 #### Index
@@ -306,11 +306,11 @@
 | OriginalEstimatedWaitingTime | int | No |  |  |  |
 | EstimatedWaitingTime | int | No | Same as OriginalEstimatedWaitingTime |  |  |
 | QueuePosition | int | No | 1 |  |  |
-| CreateTime | datetime2 | No |  |  |  |
-| SummonTime | datetime2 | No |  |  |  |
-| ArriveTime | datetime2 | No |  |  |  |
+| CreatedTime | datetime2 | No |  |  |  |
+| SummonedTime | datetime2 | No |  |  |  |
+| ArrivedTime | datetime2 | No |  |  |  |
 | NoShowTime | datetime2 | No |  |  |  |
-| EndTime | datetime2 | No |  |  |  |
+| EndedTime | datetime2 | No |  |  |  |
 | IsDeleted | bit | No | 0 |  |  |
 
 #### Index
