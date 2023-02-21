@@ -45,6 +45,7 @@
 ## 模块间交互
 
 ## 数据流
+QueueAPI -> Site DB -> QueueService -> Reporting DB
 
 ## 业务逻辑/流程
 1. Mark Sommoned Session as Expired after a configured duration automatically.

@@ -25,7 +25,7 @@
 | Id | uniqueidentifier | No | NEWID() | Yes |  |
 | PartnerId | int | No |  |  |  |
 | Language | smallint | No |  |  |  |
-| NotificationType | smallint | No | 1 |  | 1: SessionCreated, 2: AboutToStart, 3: Summoned, 4: Expired, 5: Removed  |
+| NotificationType | smallint | No | 1 |  | 1: SessionCreated, 2: AboutToStart, 3: Summoned, 4: NoShow, 5: Removed  |
 | ChannelType | smallint | No | 1 |  | 1: SMS |
 | Name | nvarchar(256) | No | '' |  | Display Name |
 | DefaultText | nvarchar(MAX) | No | '' |  |  |
@@ -47,6 +47,7 @@
 | Name | nvarchar(256) | No | '' |  |  |
 | Logo | image | No |  |  |  |
 | ThemeColor | nvarchar(32) | No | '#329FD9' |  |  |
+| GreetingMessage | nvarchar(MAX) | No | '' |  |  |
 | IsDeleted | bit | No | 0 |  |  |
 | RowVersion | timestamp | No |  |  |  |
 
@@ -54,37 +55,6 @@
 | Name | Colomns(Order) | Includes | Is Clustered | Is Unique | Remark |
 |--|--|--|--|--|--|
 | IX_T_Queue_Location_SiteId | SiteId Asc |  | No | No |  |
-
-### LocationLanguageConfig - T_Queue_LocationLanguageConfig
-| Name | Type | Nullable | Default Value | Is Primary Key | Remark |
-|--|--|--|--|--|--|
-| Id | uniqueidentifier | No | NEWID() | Yes |  |
-| SiteId | int | No |  |  |  |  |
-| LocationId | uniqueidentifier | No |  |  |  |  |
-| Language | smallint | No |  |  |  |
-| IsDeleted | bit | No | 0 |  |  |
-| RowVersion | timestamp | No |  |  |  |  |
-
-#### Index
-| Name | Colomns(Order) | Includes | Is Clustered | Is Unique | Remark |
-|--|--|--|--|--|--|
-| IX_T_Queue_LocationLanguageConfig_SiteId_LocationId | SiteId asc, LocationId asc |  | No | No |  |
-
-### LocationLanguageItem - T_Queue_LocationLanguageItem
-| Name | Type | Nullable | Default Value | Is Primary Key | Remark |
-|--|--|--|--|--|--|
-| Id | uniqueidentifier | No | NEWID() | Yes |  |
-| SiteId | int | No |  |  |  |  |
-| LocationId | uniqueidentifier | No |  |  |  |  |
-| SystemName | nvarchar(256) | No | '' |  |  | Identity Name |
-| Text | nvarchar(MAX) | No | '' |  |  |  |
-| IsDeleted | bit | No | 0 |  |  |
-| RowVersion | timestamp | No |  |  |  |  |
-
-#### Index
-| Name | Colomns(Order) | Includes | Is Clustered | Is Unique | Remark |
-|--|--|--|--|--|--|
-| IX_T_Queue_LocationLanguageItem_SiteId_LocationId | SiteId asc, LocationId asc |  | No | No |  |
 
 ### Queue - T_Queue_Queue
 | Name | Type | Nullable | Default Value | Is Primary Key | Remark |
@@ -99,8 +69,8 @@
 | IsStatusManuallyControlled | bit | No | 0 |  |  |
 | InitialServeDuration | int | No | 30 |  | in Minutes |
 | ServiceAgentCount | int | No | 1 |  |  |
-| SummonToExpiredTime | int | No | 15 |  | in Minutes, 0 means never set to Expired/noShow |
-| ExpiredToRemovedTime | int | No | 60 |  | in Minutes |
+| SummonToNoShowTime | int | No | 15 |  | in Minutes, 0 means never set to NoShow |
+| NoShowToRemovedTime | int | No | 60 |  | in Minutes |
 | AboutToStartNotificationMinutes | int | No | 10 |  | in Minutes |
 | IsDeleted | bit | No | 0 |  |  |
 | RowVersion | timestamp | No |  |  |  |
@@ -251,7 +221,7 @@
 | SiteId | int | No |  |  |  |
 | AccountSID | nvarchar(2048) | No | '' |  |  |
 | AuthToken | nvarchar(2048) | No | '' |  |  |
-| PhoneNumberSID | nvarchar(2048) | No | '' |  |  |
+| PhoneNumber | nvarchar(32) | No | '' |  |  |
 | IsDeleted | bit | No | 0 |  |  |
 | RowVersion | timestamp | No |  |  |  |
 
@@ -267,7 +237,7 @@
 | SiteId | int | No |  |  |  |
 | QueueId | uniqueidentifier | No |  |  |  |
 | ServiceAgentId | uniqueidentifier | No |  |  | {Agent} |
-| Status | int | No |  |  | low 4 bits reserved for by who, 1: bySystem, 2: byAgent.  16: Created, 32: Summoned, 64: Arrived, 128: Ended, 256: Expired(NoShow), 512: Removed, 513 RemovedBySystem, 514: RemovedByAgent |
+| Status | int | No |  |  | low 4 bits reserved for by who, 1: bySystem, 2: byAgent.  16: Created, 32: Summoned, 64: Arrived, 128: Ended, 256: NoShow, 512: Removed, 513 RemovedBySystem, 514: RemovedByAgent |
 | OriginalEstimatedWaitingTime | int | No |  |  |  |
 | CurrentEstimatedWaitingTime | int | No | Same as OriginalEstimatedWaitingTime |  |  |
 | CurrentQueuePosition | int | No |  |  |  |
