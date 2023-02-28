@@ -147,6 +147,9 @@ for (const tableObj of tables) {
     let className = tableObj.name.replaceAll('T_Queue_', '');
     console.log(`${className}`);
     let cls = cls_template
+        .replaceAll('#TableName#', tableObj.name)
+        .replaceAll('#upperClassName#', className.toUpperCase())
+        .replaceAll('#schema#', tableObj.schema.toUpperCase())
         .replaceAll('#className#', className)
         .replaceAll('#props#', columns)
 
