@@ -10,6 +10,6 @@ namespace QueueEntities
     [Table(Consts.TABLE_#upperClassName#, Schema = Consts.SCHEMA_#schema#)]
     public class #className#
     {
-    #props#
+#props#
     }
 }

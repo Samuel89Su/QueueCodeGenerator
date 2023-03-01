@@ -1,157 +1,21 @@
 const fs = require("fs");
-const { stringify } = require("querystring");
 
-const tables = new Array();
+const MarkdownExtractor = require('./markdownExtractor');
 
-const doc = fs.readFileSync(`database.md`, {
-    encoding: "utf8",
-  });
+const SQLDDLExporter = require('./sqlDDLExporter');
 
-const docLines = doc.split('\n');
-let schema = '';
-let tableName = '';
-let table = {
-    columns: [],
-    indexes: [],
-};
-for (let lineIndex = 0; lineIndex < docLines.length; lineIndex++) {
-    const line = docLines[lineIndex];
-    if (!line || line==='' || line.trim() === '') {
-        continue;
-    } else if (line.startsWith('## ')) {
-        schema = line.replaceAll('##', '').trim();
-        console.log(`Schema: ${schema}`);
-    } else if (line.startsWith('### ')) {
+const CSharpEntityExporter = require('./csharpEntityExporter');
 
-        // push previous table
-        if (table.name) {
-            tables.push(table);
-        }
+const AutoCodingEntitySQLExporter = require('./autoCodingEntitySQLExporter');
 
-        tableName = line.replaceAll('### ', '').split('-')[1].trim();
-        console.log(`Table: ${tableName}`);
+// extract table from markdown
+const tables = MarkdownExtractor.extractTables();
 
-        table = {
-            columns: [],
-            indexes: [],
-        };
-        table.name = tableName;
-        table.schema = schema;
+// // export SQL DDL
+// SQLDDLExporter.exportSql(tables);
 
-        lineIndex += 2;
-    } else if (line.startsWith('#### ')) {  // index
-        let index = docLines[lineIndex + 3];
-        console.log(`Index: ${index}`);
+// // export CSharp Entity Classes
+// CSharpEntityExporter.exportClasses(tables);
 
-        let props = index.split('|')
-        table.indexes.push({
-            name: props[1].trim(),
-            columns: props[2].trim(),
-            includes: props[3].trim(),
-            isClustered: props[4].trim().toLowerCase() === 'yes' ? true : false,
-            isUnique: props[5].trim().toLowerCase() === 'yes' ? true : false,
-        });
-
-        lineIndex += 3;
-    } else {    // Column
-        console.log(`Column: ${line}`);
-
-        let props = line.split('|');
-        table.columns.push({
-            name: props[1].trim(),
-            type: props[2].trim(),
-            nullable: props[3].trim().toLowerCase() === 'no' ? false : true,
-            defaultValue: props[4].trim(),
-            isPrimaryKey: props[5].trim().toLowerCase() === 'yes' ? true : false,
-        });
-    }
-
-    if (lineIndex === docLines.length - 1) {
-        // push last table
-        if (table.name) {
-            tables.push(table);
-        }
-    }
-}
-
-const ddl_table_template = fs.readFileSync(`ddl_table_template.sql`, {
-    encoding: "utf8",
-  });
-
-const ddl_table_index_template = fs.readFileSync(`ddl_table_index_template.sql`, {
-    encoding: "utf8",
-  });
-
-// generate db scripts
-for (const tableObj of tables) {
-
-    let columns = '';
-    tableObj.columns.forEach(column => {
-        columns += `    [${column.name}] ${column.type} ${!column.nullable?'NOT NULL':''} ${column.defaultValue!==''?`DEFAULT(${column.defaultValue})`:''},\n`;
-    });
-    columns = columns.substring(0, columns.lastIndexOf(',\n'));
-
-    let ddl_index = '';
-    if (tableObj.indexes && tableObj.indexes.length > 0) {
-        for (const index of tableObj.indexes) {
-            ddl_index += ddl_table_index_template
-                    .replaceAll('#schema#', tableObj.schema)
-                    .replaceAll('#TableName#', tableObj.name)
-                    .replaceAll('#joinedColumns#', index.columns.toLowerCase().replaceAll('asc','').replaceAll('desc','').replaceAll(',','_').replaceAll(' ',''))
-                    .replaceAll('#indexColumns#', index.columns)
-                    .replaceAll('#clustered#', !index.isClustered ? 'NON' : '')
-                + '\n';
-        }
-    }
-
-    console.log(`${tableObj.schema}.${tableObj.name}`);
-    let ddl = ddl_table_template
-        .replaceAll('#schema#', tableObj.schema)
-        .replaceAll('#TableName#', tableObj.name)
-        .replaceAll('#columns#', columns)
-        .replaceAll('#indexes#', ddl_index);
-
-    fs.writeFileSync(`./ddlSqls/DDL_${tableObj.schema}_${tableObj.name}.sql`, ddl);
-}
-
-// generate C# classes
-const cls_template = fs.readFileSync(`clss.cs`, {
-    encoding: "utf8",
-  });
-for (const tableObj of tables) {
-
-    let columns = '';
-    tableObj.columns.forEach(column => {
-        columns += `    public `
-            + (column.type === 'uniqueidentifier'
-                ? 'Guid'
-                : column.type.startsWith('nvarchar')
-                ? 'string'
-                : column.type === 'bit'
-                ? 'bool'
-                : column.type === 'timestamp'
-                ? 'byte[]'
-                : column.type === 'image'
-                ? 'byte[]'
-                : column.type)
-            + ` ${column.name} { get; set; }`
-            + (column.defaultValue === 'NEWID()' 
-                ? ' = Guid.NewGuid();'
-                : column.defaultValue !== ''
-                ? ' = ' + column.defaultValue + ';'
-                : ' = string.Empty;')
-            + '\n';
-    });
-    // columns = columns.substring(0, columns.lastIndexOf(',\n'));
-
-    let className = tableObj.name.replaceAll('T_Queue_', '');
-    console.log(`${className}`);
-    let cls = cls_template
-        .replaceAll('#TableName#', tableObj.name)
-        .replaceAll('#upperClassName#', className.toUpperCase())
-        .replaceAll('#schema#', tableObj.schema.toUpperCase())
-        .replaceAll('#className#', className)
-        .replaceAll('#props#', columns)
-
-    fs.writeFileSync(`./classes/${tableObj.schema}/${className}.cs`, cls);
-}
+// export autocoding config
+AutoCodingEntitySQLExporter.exportAutoCodingEntitySql(tables);

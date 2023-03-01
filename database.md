@@ -188,6 +188,7 @@
 | Id | uniqueidentifier | No | NEWID() | Yes |  |
 | SiteId | int | No |  |  |  |
 | QueueId | uniqueidentifier | No |  |  |  |
+| IsEnabled | bit | No | 0 |  |  |
 | DayOfWeek | smallint | No |  |  | Sunday:0....Saturday:6  |
 | StartTime | datetime2 | No |  |  |  |
 | EndTime | datetime2 | No |  |  |  |
